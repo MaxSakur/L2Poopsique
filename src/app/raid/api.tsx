@@ -33,7 +33,7 @@ export const setNewRespawn = async (el: RaidRequestData): Promise<any> => {
         ...el,
         respawnTimeStart: moment(el.respawnTimeStart).toISOString(),
         respawnTimeEnd: moment(el.respawnTimeStart)
-          .add("minutes", 30)
+          .add(30, "minutes")
           .toISOString(),
       }),
     });
