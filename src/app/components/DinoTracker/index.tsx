@@ -11,8 +11,8 @@ const DinoTracker: FC<DinoTrackerProps> = () => {
   const [counters, setCounters] = useState<Array<number>>([]);
 
   const handleAddNewCounter = () => {
-    if (counters.length <= 5) {
-      setCounters([...counters, 5]);
+    if (counters.length <= 4) {
+      setCounters([...counters, 15]);
     }
   };
 
