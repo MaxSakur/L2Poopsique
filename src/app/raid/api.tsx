@@ -7,7 +7,7 @@ import { parseURL } from "@/utils";
 
 export const getRaids = async (): Promise<RaidResponse | undefined> => {
   try {
-    const res = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/api/raidBoss", {
+    const res = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/raidBoss", {
       cache: "no-store",
     });
 
@@ -15,7 +15,7 @@ export const getRaids = async (): Promise<RaidResponse | undefined> => {
     if (!res.ok) {
       throw new Error("Failed to fetch raid boss list");
     }
-    
+
     return await res.json();
   } catch (error) {
     console.error("Error loading raid boss list: ", error);
