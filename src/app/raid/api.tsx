@@ -55,7 +55,7 @@ export const getInfoData = async (hash?: string) => {
     const { rb_id, rb_hash } = parseURL(hash);
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/raidData` + `?id=${rb_id}&hash=${rb_hash}`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/raidData` + `?id=${rb_id}&hash=${rb_hash}`,
         {
           cache: "no-store",
         }
@@ -74,7 +74,7 @@ export const deleteInfoData = async (id?: string) => {
   if (id) {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/raidBoss` + `?id=${id}`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/raidBoss` + `?id=${id}`,
         {
           method: "DELETE",
         }
@@ -91,7 +91,7 @@ export const deleteInfoData = async (id?: string) => {
 
 export const sendMessageToTelegram = async (text: string): Promise<any> => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/telegram`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/telegram`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

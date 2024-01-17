@@ -42,16 +42,6 @@ const Calendar: FC<CalendarProps> = ({ data }) => {
   const [items, setItems] = useState<CalendarItem[]>([]);
   const [activeRaidIndex, setActiveRaidIndex] = useState<Id | null>(null);
 
-  useEffect(()=> {
-    const getData = async() => {
-      return await getRaids();
-    }
-
-    console.log('GET DATA USE EFFECT',getData());
-
-  }, [])
-
-
   useEffect(() => {
     if (data) {
       setItems(
