@@ -41,6 +41,7 @@ export const setNewRespawn = async (el: RaidRequestData): Promise<any> => {
       const data = await res.json();
       console.log(data);
     } else {
+      console.log(res);
       console.error("setNewRespawn request error:", res.status);
     }
   } catch (error) {

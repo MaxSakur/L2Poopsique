@@ -79,6 +79,8 @@ const Calendar: FC<CalendarProps> = ({ data }) => {
     return () => clearInterval(interval);
   }, [items]);
 
+  console.log('items', items);
+
   return (
     <>
     <Timeline
