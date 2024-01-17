@@ -38,11 +38,9 @@ export const setNewRespawn = async (el: RaidRequestData): Promise<any> => {
       }),
     });
 
-    if (res.status === 200) {
-      const data = await res.json();
-      console.log(data);
+    if (res.status === 200 || res.status === 201) {
+      return await res.json();
     } else {
-      console.log(res);
       console.error("setNewRespawn request error:", res.status);
     }
   } catch (error) {
