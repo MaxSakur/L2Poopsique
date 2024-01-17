@@ -48,6 +48,10 @@ body {
   background: #000 !important;
 }
 
+.Toastify__toast-body {
+  color: var(--color-black)
+}
+
 * {
   margin: 0;
   padding: 0;
