@@ -1,0 +1,109 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    max-width: 400px;
+    flex: 1;
+    background: #000;
+    overflow: hidden;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px;
+    gap: 16px;
+
+}
+
+.headerInfo {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: space-between;
+}
+
+.raidImage {
+    width: 100px;
+    height: inherit;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.nameLvl {
+    display: flex;
+    gap: 8px;
+}
+
+.level {
+    font-weight: bold;
+    color: var(--color-primary);
+}
+
+.name {
+    font-weight: bold;
+    color: var(--color-white)
+}
+
+.respawn {
+    font-size: 14px;
+}
+
+.location {
+    background-color: transparent;
+    padding: 8px;
+    border: 1px solid var(--color-white);
+    text-align: center;
+    text-decoration: none;
+}
+
+.location:hover {
+    cursor: pointer;
+    background-color: var(--color-primary);
+}
+
+.divider {
+    padding: 16px;
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
+}
+
+.dropList ul {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    list-style: none;
+    max-height: 300px;
+    padding: 16px;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.dropList ul::-webkit-scrollbar {
+    width: 0;
+}
+
+.dropList li::before {
+    content: '¤';
+    padding-right: 8px;
+    color: #555;
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+}
+
+.dropList li {
+    font-size: 12px;
+    border-bottom: 1px solid #555;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding-bottom: 4px;
+}
+
+.dropList li p:first-of-type {
+    flex: 1;
+}

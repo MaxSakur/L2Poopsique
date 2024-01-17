@@ -1,0 +1,25 @@
+.container {
+    display: flex;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    max-width: 400px;
+    flex: 1;
+    flex-direction: column;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background-color: #000;
+}
+
+.header svg:hover {
+    cursor: pointer;
+    transition: all 1s ease-in-out;
+    background-color: #212020;
+    fill: var(--color-primary);
+}

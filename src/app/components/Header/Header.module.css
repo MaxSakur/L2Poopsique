@@ -1,0 +1,26 @@
+.navigation {
+    display: flex;
+    justify-content: flex-start;
+    gap: 40px;
+    padding: 20px 120px;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+    color: white;
+    font-size: 1.2rem;
+    z-index: 10;
+}
+
+.navigation a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.navigation a:hover {
+    text-decoration: underline;
+}
