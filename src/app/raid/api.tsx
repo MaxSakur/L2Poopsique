@@ -11,8 +11,11 @@ export const getRaids = async (): Promise<RaidResponse | undefined> => {
       cache: "no-store",
     });
 
+    
     if (!res.ok) {
       throw new Error("Failed to fetch raid boss list");
+    } else {
+      console.log('res', res)
     }
 
     return await res.json();

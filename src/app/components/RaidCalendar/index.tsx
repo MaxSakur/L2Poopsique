@@ -80,6 +80,7 @@ const Calendar: FC<CalendarProps> = ({ data }) => {
   }, [items]);
 
   console.log('items', items);
+  console.log('data', data);
 
   return (
     <>
