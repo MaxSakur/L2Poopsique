@@ -8,9 +8,7 @@ import { CalendarItem, RaidResponseItem } from "../../raid/types";
 import RaidInfo from "../RaidInfo";
 import AddRaidInfo from "../AddNewRaid";
 import DinoTracker from "../DinoTracker";
-import { sendMessageToTelegram } from "@/app/raid/api";
-
-
+import { getRaids, sendMessageToTelegram } from "@/app/raid/api";
 
 const baseSettings = {
   canMove: false,
@@ -43,6 +41,16 @@ type CalendarProps = {
 const Calendar: FC<CalendarProps> = ({ data }) => {
   const [items, setItems] = useState<CalendarItem[]>([]);
   const [activeRaidIndex, setActiveRaidIndex] = useState<Id | null>(null);
+
+  useEffect(()=> {
+    const getData = async() => {
+      return await getRaids();
+    }
+
+    console.log('GET DATA USE EFFECT',getData());
+
+  }, [])
+
 
   useEffect(() => {
     if (data) {
