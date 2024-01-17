@@ -27,10 +27,6 @@ export async function POST(req: Request | NextRequest) {
       }),
     });
 
-    if (!response.ok) {
-      throw new Error(`Telegram error: ${response.status}`);
-    }
-
     return NextResponse.json(
       { message: `${text} has been added` },
       { status: 201 }
