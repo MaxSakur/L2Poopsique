@@ -5,7 +5,8 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      <p>MAIN PAGE</p>
+      <p>Welcome, Friend.</p> 
+      <p>@made by Poopsique</p> 
     </main>
   )
 }
