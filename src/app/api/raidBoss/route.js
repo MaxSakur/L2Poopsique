@@ -6,6 +6,7 @@ import { raidBossList } from "@/app/data/raidBossList";
 export async function POST(req) {
   try {
     const { name, respawnTimeStart, respawnTimeEnd } = await req.json();
+    console.log("respawnTimeEnd", respawnTimeEnd);
     const type = await raidBossList.find((rb) => rb.name === name).type;
     await connectMongoDB();
     await RaidBoss.create({

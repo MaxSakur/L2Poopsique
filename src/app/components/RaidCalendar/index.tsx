@@ -9,6 +9,7 @@ import RaidInfo from "../RaidInfo";
 import AddRaidInfo from "../AddNewRaid";
 import DinoTracker from "../DinoTracker";
 import { getRaids, sendMessageToTelegram } from "@/app/raid/api";
+import { toast } from 'react-toastify';
 
 const baseSettings = {
   canMove: false,
@@ -52,10 +53,7 @@ const Calendar: FC<CalendarProps> = ({ data }) => {
           group: el.group,
           title: el.name,
           start_time: moment(new Date(el.respawnTimeStart).toISOString()),
-          end_time: moment(new Date(el.respawnTimeEnd).toISOString()).add(
-            1,
-            "hour"
-          ),
+          end_time: moment(new Date(el.respawnTimeEnd).toISOString())
         }))
       );
     }
@@ -69,16 +67,15 @@ const Calendar: FC<CalendarProps> = ({ data }) => {
         const tenMinutesBeforeStart = itemStart.subtract(10, 'minutes');
 
         if (now.isSame(tenMinutesBeforeStart, 'minute')) {
-          sendMessageToTelegram(`Начало респа РБ ${item.name} начнется через через 10 минут`);
+          const message = `Начало респа РБ ${item.name} начнется через 10 минут`;
+          sendMessageToTelegram(message);
+          toast(message);
         }
       });
     }, 60000);
   
     return () => clearInterval(interval);
   }, [items]);
-
-  console.log('items', items);
-  console.log('data', data);
 
   return (
     <>
