@@ -1,4 +1,30 @@
+import { CraftCollection } from "@/app/components/CraftCalculator";
+import { sAccessoriesCraftList } from "@/app/data/sAccessoriesCraftList";
+import { sArmorCraftList } from "@/app/data/sArmorCraftList";
+import { sWeaponsCraftList } from "@/app/data/sWeaponCraftList";
+import { conversionRates } from "@/app/data/stokatoExchange";
 import moment from "moment";
+
+type unionItemCraft = {
+  name: string;
+  unsealCostKK?: number;
+  sa?: {
+      green: string;
+      red: string;
+      blue: string;
+  };
+  ingredients: {
+    name: string;
+    count: number;
+  }[];
+}
+
+
+export const unionCraftData = [
+    ...sWeaponsCraftList,
+    ...sArmorCraftList,
+    ...sAccessoriesCraftList,
+  ];
 
 export function parseURL(url: string) {
     const trimmedURL = url.replace("https://l2.dropspoil.com/npc", "");
@@ -31,4 +57,113 @@ export function calculateTimeRemaining(eventDate: moment.Moment) {
 
 export function replaceNpcWithLoc(url: string) {
     return url.replace("/npc/", "/loc/");
+}
+
+interface Item {
+  name: string;
+  count: number;
+}
+
+interface CraftItem {
+  name: string;
+  ingredients: Item[];
+}
+
+const specialSort = (arr: Item[]): Item[] => {
+  const specialOrder: { [key: string]: number } = {
+    "Recipe:": -1, 
+    "Crystal S": 1, 
+    "Gemstone S": 2, 
+  };
+
+  const getPriority = (name: string): number => {
+    for (const [key, priority] of Object.entries(specialOrder)) {
+      if (name.includes(key)) {
+        return priority;
+      }
+    }
+    return 0; 
+  };
+
+  return arr.sort((a, b) => {
+    const priorityA = getPriority(a.name);
+    const priorityB = getPriority(b.name);
+
+    if (priorityA !== priorityB) {
+      return priorityA - priorityB;
+    }
+
+    return a.name.localeCompare(b.name);
+  });
+};
+
+
+export const convertItemsToResources = (data: CraftCollection): Item[] => {
+  const filtered = data.map(item => 
+    unionCraftData.find(el => el.name === item.name)
+  ).filter(item => item !== undefined) as CraftItem[];
+
+  const res = filtered.reduce((acc: Item[], item: CraftItem) => {
+    item.ingredients.forEach(ingredient => {
+      const existing = acc.find(el => el.name === ingredient.name);
+      if (existing) {
+        existing.count += ingredient.count;
+      } else {
+        acc.push({ ...ingredient });
+      }
+    });
+    return acc;
+  }, []);
+
+  return specialSort(res);
+};
+
+export function randomizeColor(min: number = 100, max: number = 240): string {
+  const randomRed = Math.floor(Math.random() * (max - min + 1)) + min;
+  const randomGreen = Math.floor(Math.random() * (max - min + 1)) + min;
+  const randomBlue = Math.floor(Math.random() * (max - min + 1)) + min;
+  return `rgb(${randomRed}, ${randomGreen}, ${randomBlue})`;
+}
+interface ConversionResult {
+  totalFangs: number;
+  unmatchedItems: Item[];
+}
+
+export function convertItemsToFangs(items: Item[]): ConversionResult {
+  let totalFangs = 0;
+  const unmatchedItems: Item[] = [];
+
+  items.forEach(item => {
+    if (item.name in conversionRates) {
+      totalFangs += item.count * conversionRates[item.name];
+    } else {
+      unmatchedItems.push(item);
+    }
+  });
+
+  return { totalFangs, unmatchedItems };
+}
+
+interface Item {
+  name: string;
+  count: number;
+}
+
+interface CraftItem {
+  name: string;
+  unsealCostKK: number;
+  ingredients: Item[];
+}
+
+
+
+export function getAA(data: CraftCollection): number {
+  return data.reduce((sum, item) => {
+    const craftItem:unionItemCraft | undefined = unionCraftData.find(ci => ci.name === item.name);
+    console.log('craft', craftItem ? craftItem.unsealCostKK : 0, item.count )
+    if(craftItem && craftItem.unsealCostKK) {
+      return sum + craftItem.unsealCostKK  * item.count;
+    }
+    else return sum 
+  }, 0);
 }

@@ -14,15 +14,14 @@ export async function POST(req: Request | NextRequest) {
     const rawData = await new Response(req.body).text();
     const data = JSON.parse(rawData);
     const { text } = data;
-    // console.log("MESSAGE", text);
 
-    const response = await fetch(url, {
+    await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        chat_id: "-1001967419450",
+        chat_id: "-1001996598325",
         text: text,
       }),
     });

@@ -1,14 +1,13 @@
 import React, { FC } from "react";
 import styles from "./RaidBossInfo.module.css";
 import { RaidBossFullData } from "../RaidInfo";
-import moment from "moment";
 import { DATA_ITEM } from "@/app/api/raidData/route";
-import Image from "next/image";
-import { generateRBPathByName } from "@/assets/raidBosses";
-import { calculateTimeRemaining, replaceNpcWithLoc } from "@/utils";
 import { DefaultRaidBossInfo, raidBossList } from "@/app/data/raidBossList";
 import { deleteInfoData } from "@/app/raid/api";
 import { useRouter } from "next/navigation";
+import Column from "../Column";
+import RaidBossInfoHeader from "./RaidBossInfoHeader";
+import Divider from "../Divider";
 
 type RaidBossInfoProps = {
   data: RaidBossFullData;
@@ -34,40 +33,9 @@ const RaidBossInfo: FC<RaidBossInfoProps> = ({
   }
 
   return data.name ? (
-    <div className={styles.container}>
-      <div className={styles.header}>
-        <Image
-          className={styles.raidImage}
-          src={generateRBPathByName(data.name)}
-          alt="Raid Boss image"
-        />
-        <div className={styles.headerInfo}>
-          <div className={styles.nameLvl}>
-            <span className={styles.level}>Lv. {data.lvl}</span>
-            <span className={styles.name}>{data.name}</span>
-          </div>
-          <>
-            <span className={styles.respawn}>
-              Respawn {moment().isSame(data.start_time, "day")
-                ? "Today"
-                : moment(data.start_time).format("DD.MM")}
-              {" at "}
-              {moment(data.start_time).format("HH:mm")}
-            </span>
-          </>
-
-          <>
-            <span className={styles.respawn}>
-              Remain {calculateTimeRemaining(data.start_time)}
-            </span>
-          </>
-          {baseInfo && <a className={styles.location} href={replaceNpcWithLoc(baseInfo.drop)} target="_blank">Show location</a>}
-        </div>
-      </div>
-
-      <div className={styles.divider}>
-        <strong className={styles.level}>Drop List</strong>
-      </div>
+   
+      <Column header={<RaidBossInfoHeader data={data} baseInfo={baseInfo}/>} footer={<button className={styles.deleteButton} onClick={handleDeleteItem}>DELETE</button>}>
+      <Divider text="Drop List">
       <div className={styles.dropList}>
         <ul>
           {data.drop &&
@@ -79,9 +47,8 @@ const RaidBossInfo: FC<RaidBossInfoProps> = ({
             ))}
         </ul>
       </div>
-
-      <button onClick={handleDeleteItem} className={styles.location}>DELETE</button>
-    </div>
+      </Divider>
+      </Column>
   ) : null;
 };
 

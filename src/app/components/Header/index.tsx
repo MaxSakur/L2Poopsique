@@ -4,6 +4,7 @@ import styles from './Header.module.css'
 
 const routes = [
   { path: "raid", label: "Raid Bosses spawn" },
+  { path: "craft", label: "Craft S grade" },
 ];
 
 const Header = () => {

@@ -1,0 +1,28 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    max-width: 400px;
+    max-height: 80vh;
+    flex: 1;
+    background: #000;
+    overflow: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.container::-webkit-scrollbar {
+    display: none;
+}
+
+.header {
+    border-bottom: 1px solid var(--color-white);
+}
+
+.footer {
+    border-top: 1px solid var(--color-white);
+    padding: 16px;
+    position: relative;
+    min-height: 20px;
+}

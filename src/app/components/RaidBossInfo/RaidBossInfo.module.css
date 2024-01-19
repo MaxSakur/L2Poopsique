@@ -1,20 +1,9 @@
-.container {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    max-width: 400px;
-    flex: 1;
-    background: #000;
-    overflow: hidden;
-}
-
-.header {
+.raidBossInfoHeader {
     display: flex;
     justify-content: space-between;
     padding: 16px;
     gap: 16px;
-
+    flex-direction: row;
 }
 
 .headerInfo {
@@ -64,19 +53,11 @@
     background-color: var(--color-primary);
 }
 
-.divider {
-    padding: 16px;
-    border-top: 1px solid grey;
-    border-bottom: 1px solid grey;
-}
-
 .dropList ul {
     display: flex;
     flex-direction: column;
     gap: 4px;
     list-style: none;
-    max-height: 300px;
-    padding: 16px;
     overflow-y: scroll;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -106,4 +87,20 @@
 
 .dropList li p:first-of-type {
     flex: 1;
+}
+
+.deleteButton {
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    transition: all .6s ease-out;
+}
+
+.deleteButton:hover {
+    background-color: var(--color-primary);
+    cursor: pointer;
 }

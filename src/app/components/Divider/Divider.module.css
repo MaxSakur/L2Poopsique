@@ -1,0 +1,30 @@
+.dividerContainer {
+    width: 100%;
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.dividerLabel {
+    border: 1px solid grey;
+}
+
+.dividerBody {
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    min-height: 20px;
+    position: relative;
+}
+
+
+.dividerText {
+    text-align: center;
+    font-weight: bold;
+    color: var(--color-primary);
+    font-size: 24px;
+    padding: 8px 0;
+}

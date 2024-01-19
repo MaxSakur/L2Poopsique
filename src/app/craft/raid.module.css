@@ -1,0 +1,17 @@
+.main {
+    height: 100dvh;
+}
+
+.content {
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.info {
+    flex: 1
+}
+
+.queue {
+    flex: 1
+}

@@ -59,7 +59,7 @@ body {
 }
 
 :root {
-  --color-primary: #d67722;
+  --color-primary: rgb(214, 119, 34);
   --color-black: #000;
   --color-white: #fff;
 }

@@ -8,7 +8,6 @@ import ForgottenBlade from "./Forgotten Blade.png";
 import HeavensDivider from "./Heavens Divider.png";
 import ImperialStaff from "./Imperial Staff.png";
 import SaintSpear from "./Saint Spear.png";
-import ScrollEnchantWeaponS from "./Scroll Enchant Weapon S.png";
 
 export const sWeapons = {
   AngelSlayer,
@@ -21,7 +20,6 @@ export const sWeapons = {
   HeavensDivider,
   ImperialStaff,
   SaintSpear,
-  ScrollEnchantWeaponS,
 };
 
 export const generateWeaponsPathByName = (name) => {
