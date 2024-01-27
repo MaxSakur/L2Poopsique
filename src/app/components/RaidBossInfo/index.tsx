@@ -22,6 +22,7 @@ const RaidBossInfo: FC<RaidBossInfoProps> = ({
 
   const handleDeleteItem = async () => {
     try {
+      console.log('id', id)
       const res = await deleteInfoData(id)
       if(res.success) {
         router.refresh();

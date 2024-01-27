@@ -8,7 +8,7 @@ import { CalendarItem, RaidResponseItem } from "../../raid/types";
 import RaidInfo from "../RaidInfo";
 import AddRaidInfo from "../AddNewRaid";
 import DinoTracker from "../DinoTracker";
-import { getRaids, sendMessageToTelegram } from "@/app/raid/api";
+import { deleteInfoData, getRaids, sendMessageToTelegram } from "@/app/raid/api";
 import { toast } from 'react-toastify';
 
 const baseSettings = {
@@ -64,18 +64,25 @@ const Calendar: FC<CalendarProps> = ({ data }) => {
       const now = moment();
       items.forEach(item => {
         const itemStart = moment(item.start_time);
-        const tenMinutesBeforeStart = itemStart.subtract(10, 'minutes');
-
+        const tenMinutesBeforeStart = itemStart.clone().subtract(10, 'minutes');
+  
         if (now.isSame(tenMinutesBeforeStart, 'minute')) {
           const message = `Начало респа РБ ${item.name} начнется через 10 минут`;
           sendMessageToTelegram(message);
           toast(message);
         }
+  
+        const twoHoursBeforeNow = now.clone().subtract(2, 'hours'); 
+        if (itemStart.isBefore(twoHoursBeforeNow)) {
+          deleteInfoData(item._id)
+        }
+  
       });
     }, 60000);
   
     return () => clearInterval(interval);
   }, [items]);
+  
 
   return (
     <>
