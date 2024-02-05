@@ -12,7 +12,7 @@ const DinoTracker: FC<DinoTrackerProps> = () => {
 
   const handleAddNewCounter = () => {
     if (counters.length <= 4) {
-      setCounters([...counters, 15]);
+      setCounters([...counters, 5]);
     }
   };
 
