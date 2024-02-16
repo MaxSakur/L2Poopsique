@@ -67,6 +67,7 @@ interface Item {
 interface CraftItem {
   name: string;
   ingredients: Item[];
+  quantity?: number;
 }
 
 const specialSort = (arr: Item[]): Item[] => {
@@ -98,24 +99,39 @@ const specialSort = (arr: Item[]): Item[] => {
 };
 
 
-export const convertItemsToResources = (data: CraftCollection): Item[] => {
-  const filtered = data.map(item => 
-    unionCraftData.find(el => el.name === item.name)
-  ).filter(item => item !== undefined) as CraftItem[];
+export const convertItemsToResources = (data: CraftCollection): Item[] | any => {
 
+  const filtered = data.map(item => {
+    const res = unionCraftData.find(el => el.name === item.name)
+    return {...res, quantity: item.count}
+  }) as CraftItem[];
+  
   const res = filtered.reduce((acc: Item[], item: CraftItem) => {
-    item.ingredients.forEach(ingredient => {
-      const existing = acc.find(el => el.name === ingredient.name);
-      if (existing) {
-        existing.count += ingredient.count;
-      } else {
-        acc.push({ ...ingredient });
-      }
+    item.ingredients.forEach(ingredient => {  
+        acc.push({ ...ingredient, count: item.quantity ? ingredient.count * item.quantity : ingredient.count });
     });
     return acc;
   }, []);
 
-  return specialSort(res);
+  function sumDuplicateIngredients(ingredients: Item[]): Item[] {
+    const ingredientMap: Record<string, number> = {};
+  
+    ingredients.forEach(ingredient => {
+      const { name, count } = ingredient;
+      if (ingredientMap[name]) {
+        ingredientMap[name] += count;
+      } else {
+        ingredientMap[name] = count;
+      }
+    });
+  
+    return Object.keys(ingredientMap).map(name => ({
+      name,
+      count: ingredientMap[name]
+    }));
+  }
+
+return specialSort(sumDuplicateIngredients(res))
 };
 
 export function randomizeColor(min: number = 100, max: number = 240): string {
@@ -160,7 +176,6 @@ interface CraftItem {
 export function getAA(data: CraftCollection): number {
   return data.reduce((sum, item) => {
     const craftItem:unionItemCraft | undefined = unionCraftData.find(ci => ci.name === item.name);
-    console.log('craft', craftItem ? craftItem.unsealCostKK : 0, item.count )
     if(craftItem && craftItem.unsealCostKK) {
       return sum + craftItem.unsealCostKK  * item.count;
     }

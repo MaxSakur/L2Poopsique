@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, ReactElement, SyntheticEvent, useState } from "react";
+import React, { FC, ReactElement, SyntheticEvent, useCallback, useState } from "react";
 import Column from "../Column";
 import { sWeapons } from "@/assets/s_weapons";
 import { sArmor } from "@/assets/s_armor";
@@ -86,6 +86,8 @@ const CraftCalculator = () => {
     { label: "Accessories", data: sAccessories },
   ];
 
+  useCallback(()=>{}, [])
+
   const handleAppToCollection = (itemName: string) => {
     setCraftCollection((prev) => {
       const existingItem = prev.find((item) => item.name === itemName);
@@ -132,6 +134,7 @@ const CraftCalculator = () => {
                   style={{ borderBottomColor: lineColor }}
                 >
                   <p style={{ color: lineColor }}>{el.name}</p>
+      
                   <p style={{ color: lineColor }}>{el.count}</p>
                 </div>
               );
